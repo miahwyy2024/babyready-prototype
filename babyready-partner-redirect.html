@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabyReady - Secure Partner Connection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+        
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .header-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            padding: 32px 20px;
+        }
+        
+        .partner-card {
+            background: white;
+            border: 2px solid #ecf0f1;
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .partner-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            font-weight: 800;
+        }
+        
+        .partner-name {
+            font-size: 20px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 6px;
+        }
+        
+        .partner-type {
+            font-size: 14px;
+            color: #7f8c8d;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .product-summary {
+            background: #f8f9fa;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .product-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .product-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        
+        .detail-label {
+            font-size: 12px;
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+        
+        .detail-value {
+            font-size: 12px;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+        
+        .security-section {
+            background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .security-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .security-points {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .security-point {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            opacity: 0.95;
+        }
+        
+        .commission-disclosure {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .disclosure-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #856404;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .disclosure-text {
+            font-size: 12px;
+            color: #856404;
+            line-height: 1.4;
+        }
+        
+        .countdown-section {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .countdown-text {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 8px;
+        }
+        
+        .countdown-timer {
+            font-size: 24px;
+            font-weight: 800;
+            color: #FF6B6B;
+            margin-bottom: 4px;
+        }
+        
+        .countdown-subtitle {
+            font-size: 12px;
+            color: #95a5a6;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .continue-btn {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        .back-btn {
+            background: transparent;
+            color: #7f8c8d;
+            border: 2px solid #ecf0f1;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            border-color: #bdc3c7;
+            color: #2c3e50;
+        }
+        
+        .trust-footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+        
+        .trust-text {
+            font-size: 11px;
+            color: #95a5a6;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-icon">🔗</div>
+            <div class="header-title">Connecting to Partner</div>
+            <div class="header-subtitle">Secure & Transparent</div>
+        </div>
+        
+        <div class="main-content">
+            <div class="partner-card">
+                <div class="partner-logo">NU</div>
+                <div class="partner-name">Nutmeg</div>
+                <div class="partner-type">Investment Platform • FCA Regulated</div>
+                
+                <div class="product-summary">
+                    <div class="product-title">Junior ISA - Managed Portfolio</div>
+                    <div class="product-details">
+                        <span class="detail-label">Monthly Investment</span>
+                        <span class="detail-value">£75/month</span>
+                    </div>
+                    <div class="product-details">
+                        <span class="detail-label">Risk Level</span>
+                        <span class="detail-value">Balanced (Level 4/7)</span>
+                    </div>
+                    <div class="product-details">
+                        <span class="detail-label">Annual Fee</span>
+                        <span class="detail-value">0.75% + fund costs</span>
+                    </div>
+                    <div class="product-details">
+                        <span class="detail-label">BabyReady Match</span>
+                        <span class="detail-value">94% confidence</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="security-section">
+                <div class="security-title">
+                    🔒 Your Security & Privacy
+                </div>
+                <div class="security-points">
+                    <div class="security-point">
+                        <span>✓</span>
+                        <span>Nutmeg never sees your BabyReady data</span>
+                    </div>
+                    <div class="security-point">
+                        <span>✓</span>
+                        <span>Your financial info stays encrypted</span>
+                    </div>
+                    <div class="security-point">
+                        <span>✓</span>
+                        <span>You can cancel anytime with Nutmeg directly</span>
+                    </div>
+                    <div class="security-point">
+                        <span>✓</span>
+                        <span>£85,000 FSCS protection included</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="commission-disclosure">
+                <div class="disclosure-title">
+                    💰 Commission Disclosure
+                </div>
+                <div class="disclosure-text">
+                    BabyReady earns a commission if you proceed with Nutmeg (estimated £45 first year). This doesn't affect your fees or our recommendation quality - we only suggest products that match your family profile.
+                </div>
+            </div>
+            
+            <div class="countdown-section">
+                <div class="countdown-text">This personalized rate expires in</div>
+                <div class="countdown-timer" id="countdown">14:32</div>
+                <div class="countdown-subtitle">Your AI-matched pricing held</div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="continue-btn" onclick="proceedToPartner()">
+                    Continue to Nutmeg Securely
+                </button>
+                <button class="back-btn" onclick="goBack()">
+                    ← Back to Recommendations
+                </button>
+            </div>
+        </div>
+        
+        <div class="trust-footer">
+            <div class="trust-text">
+                By continuing, you'll be redirected to Nutmeg's secure website. BabyReady is not responsible for their services or policies. You can return to BabyReady anytime from your account dashboard.
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Countdown timer
+        let timeLeft = 14 * 60 + 32; // 14 minutes 32 seconds in seconds
+        
+        function updateCountdown() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('countdown').textContent = 
+                `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft > 0) {
+                timeLeft--;
+            } else {
+                document.getElementById('countdown').textContent = 'EXPIRED';
+                document.querySelector('.continue-btn').disabled = true;
+                document.querySelector('.continue-btn').style.background = '#bdc3c7';
+                document.querySelector('.continue-btn').textContent = 'Offer Expired - Get New Quote';
+            }
+        }
+        
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+        
+        function proceedToPartner() {
+            alert('Redirecting to Nutmeg...\n\nIn real app: Secure redirect with pre-filled application based on your BabyReady profile');
+        }
+        
+        function goBack() {
+            alert('Return to: Product Recommendations');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabyReady - Personalized Recommendations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+            color: white;
+            padding: 20px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        .filter-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .timing-badge {
+            background: rgba(255,255,255,0.9);
+            color: #4ECDC4;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-block;
+        }
+        
+        .main-content {
+            padding: 24px 20px;
+        }
+        
+        .intro-section {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .intro-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .intro-subtitle {
+            font-size: 14px;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+        
+        .recommendations-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .product-card {
+            background: white;
+            border: 2px solid #ecf0f1;
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            border-color: #4ECDC4;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(78, 205, 196, 0.15);
+        }
+        
+        .product-card.recommended {
+            border-color: #FF6B6B;
+            background: linear-gradient(135deg, #fff5f5 0%, #fff 100%);
+        }
+        
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        
+        .product-info {
+            flex: 1;
+        }
+        
+        .product-badge {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+        
+        .product-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+        
+        .product-provider {
+            font-size: 12px;
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+        
+        .confidence-score {
+            background: #4ECDC4;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        
+        .product-features {
+            margin: 12px 0;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            font-size: 13px;
+            color: #34495e;
+        }
+        
+        .feature-icon {
+            font-size: 12px;
+        }
+        
+        .product-explanation {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 12px;
+            border-left: 3px solid #4ECDC4;
+        }
+        
+        .explanation-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+        
+        .explanation-text {
+            font-size: 11px;
+            color: #7f8c8d;
+            line-height: 1.4;
+        }
+        
+        .product-cta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+        }
+        
+        .product-price {
+            font-size: 14px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        
+        .learn-more-btn {
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .view-all-btn {
+            width: 100%;
+            background: transparent;
+            color: #4ECDC4;
+            border: 2px solid #4ECDC4;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .view-all-btn:hover {
+            background: #4ECDC4;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <div class="header-title">Smart Recommendations</div>
+                <button class="filter-btn">Filter</button>
+            </div>
+            <div class="timing-badge">⏰ Perfect timing for L2 stage</div>
+        </div>
+        
+        <div class="main-content">
+            <div class="intro-section">
+                <h1 class="intro-title">Tailored for your family</h1>
+                <p class="intro-subtitle">Based on your toddler stage & protection-conscious profile</p>
+            </div>
+            
+            <div class="recommendations-list">
+                <div class="product-card recommended" onclick="selectProduct('junior-isa')">
+                    <div class="product-header">
+                        <div class="product-info">
+                            <div class="product-badge">Top Match</div>
+                            <div class="product-title">Junior ISA</div>
+                            <div class="product-provider">Nutmeg</div>
+                        </div>
+                        <div class="confidence-score">94%</div>
+                    </div>
+                    
+                    <div class="product-features">
+                        <div class="feature-item">
+                            <span class="feature-icon">🎯</span>
+                            <span>Tax-free growth until 18</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🤖</span>
+                            <span>Automated portfolio management</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">💷</span>
+                            <span>£25/month minimum</span>
+                        </div>
+                    </div>
+                    
+                    <div class="product-explanation">
+                        <div class="explanation-title">Why this matches you:</div>
+                        <div class="explanation-text">Your education-focused behavior and 15-year planning horizon make this ideal. Other L2 families report 89% satisfaction.</div>
+                    </div>
+                    
+                    <div class="product-cta">
+                        <div class="product-price">From £25/month</div>
+                        <button class="learn-more-btn">Learn More</button>
+                    </div>
+                </div>
+                
+                <div class="product-card" onclick="selectProduct('child-insurance')">
+                    <div class="product-header">
+                        <div class="product-info">
+                            <div class="product-title">Child Life Insurance</div>
+                            <div class="product-provider">Legal & General</div>
+                        </div>
+                        <div class="confidence-score">91%</div>
+                    </div>
+                    
+                    <div class="product-features">
+                        <div class="feature-item">
+                            <span class="feature-icon">🛡️</span>
+                            <span>Up to £50k coverage</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">⚡</span>
+                            <span>No medical needed</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">📱</span>
+                            <span>Quick online setup</span>
+                        </div>
+                    </div>
+                    
+                    <div class="product-explanation">
+                        <div class="explanation-title">Why this matches you:</div>
+                        <div class="explanation-text">Your protection-conscious profile and stable income pattern indicate readiness for family security planning.</div>
+                    </div>
+                    
+                    <div class="product-cta">
+                        <div class="product-price">From £8/month</div>
+                        <button class="learn-more-btn">Learn More</button>
+                    </div>
+                </div>
+                
+                <div class="product-card" onclick="selectProduct('high-yield-savings')">
+                    <div class="product-header">
+                        <div class="product-info">
+                            <div class="product-title">Family Savings Account</div>
+                            <div class="product-provider">Monzo</div>
+                        </div>
+                        <div class="confidence-score">86%</div>
+                    </div>
+                    
+                    <div class="product-features">
+                        <div class="feature-item">
+                            <span class="feature-icon">💰</span>
+                            <span>4.1% AER variable</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">⚡</span>
+                            <span>Instant access</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🎯</span>
+                            <span>Goal tracking tools</span>
+                        </div>
+                    </div>
+                    
+                    <div class="product-explanation">
+                        <div class="explanation-title">Why this matches you:</div>
+                        <div class="explanation-text">Your regular saving patterns suggest need for accessible emergency fund with competitive returns.</div>
+                    </div>
+                    
+                    <div class="product-cta">
+                        <div class="product-price">No minimum balance</div>
+                        <button class="learn-more-btn">Learn More</button>
+                    </div>
+                </div>
+                
+                <div class="product-card" onclick="selectProduct('cashback')">
+                    <div class="product-header">
+                        <div class="product-info">
+                            <div class="product-title">Family Cashback</div>
+                            <div class="product-provider">TopCashback</div>
+                        </div>
+                        <div class="confidence-score">78%</div>
+                    </div>
+                    
+                    <div class="product-features">
+                        <div class="feature-item">
+                            <span class="feature-icon">🛍️</span>
+                            <span>Up to 15% on baby products</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">💳</span>
+                            <span>Automatic cashback</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🎯</span>
+                            <span>Family category focus</span>
+                        </div>
+                    </div>
+                    
+                    <div class="product-explanation">
+                        <div class="explanation-title">Why this matches you:</div>
+                        <div class="explanation-text">Your £340/month family shopping pattern could generate £25+ monthly cashback automatically.</div>
+                    </div>
+                    
+                    <div class="product-cta">
+                        <div class="product-price">Free to join</div>
+                        <button class="learn-more-btn">Learn More</button>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="view-all-btn" onclick="viewAllRecommendations()">
+                View All 12 Recommendations
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        function selectProduct(productId) {
+            alert(`Selecting ${productId}\nNext: Partner redirect & verification`);
+        }
+        
+        function viewAllRecommendations() {
+            alert('Show expanded recommendation list with filters and comparison tools');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabyReady - Your Family Financial Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .header-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            padding: 30px 20px;
+        }
+        
+        .greeting {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .greeting-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .greeting-subtitle {
+            font-size: 16px;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+        
+        .lifecycle-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .lifecycle-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+        
+        .lifecycle-stage {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .lifecycle-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        
+        .lifecycle-description {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        .behavioral-tags {
+            margin-bottom: 24px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tags-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .tag-item {
+            background: #f8f9fa;
+            padding: 16px 12px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid transparent;
+        }
+        
+        .tag-item.active {
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+            border-color: #4ECDC4;
+        }
+        
+        .tag-icon {
+            font-size: 20px;
+            margin-bottom: 6px;
+            display: block;
+        }
+        
+        .tag-label {
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+        
+        .insights-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .insight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .insight-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .insight-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .insight-text {
+            flex: 1;
+        }
+        
+        .insight-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 2px;
+        }
+        
+        .insight-description {
+            font-size: 13px;
+            color: #7f8c8d;
+            line-height: 1.3;
+        }
+        
+        .confidence-meter {
+            background: #ecf0f1;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4ECDC4, #44A08D);
+            width: 87%;
+            border-radius: 4px;
+            transition: width 2s ease-in-out;
+        }
+        
+        .confidence-text {
+            text-align: center;
+            font-size: 12px;
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+        
+        .cta-button {
+            width: 100%;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-title">Your Family Financial Profile</div>
+            <div class="header-subtitle">Powered by AI Analysis</div>
+        </div>
+        
+        <div class="main-content">
+            <div class="greeting">
+                <h1 class="greeting-title">Hello, Sarah! 👋</h1>
+                <p class="greeting-subtitle">We've analyzed your family's financial pattern</p>
+            </div>
+            
+            <div class="lifecycle-card">
+                <div class="lifecycle-stage">FAMILY LIFECYCLE STAGE</div>
+                <div class="lifecycle-title">L2 - Toddler Stage</div>
+                <div class="lifecycle-description">
+                    You're in the active toddler phase with growing childcare needs and emerging education planning opportunities
+                </div>
+            </div>
+            
+            <div class="behavioral-tags">
+                <h2 class="section-title">
+                    🏷️ Your Behavioral Profile
+                </h2>
+                <div class="tags-grid">
+                    <div class="tag-item active">
+                        <span class="tag-icon">🛡️</span>
+                        <div class="tag-label">Protection Conscious</div>
+                    </div>
+                    <div class="tag-item active">
+                        <span class="tag-icon">🎓</span>
+                        <div class="tag-label">Education Focused</div>
+                    </div>
+                    <div class="tag-item">
+                        <span class="tag-icon">💰</span>
+                        <div class="tag-label">Budget Optimizer</div>
+                    </div>
+                    <div class="tag-item active">
+                        <span class="tag-icon">📱</span>
+                        <div class="tag-label">Digital Native</div>
+                    </div>
+                    <div class="tag-item active">
+                        <span class="tag-icon">⚖️</span>
+                        <div class="tag-label">Risk Balanced</div>
+                    </div>
+                    <div class="tag-item">
+                        <span class="tag-icon">🚀</span>
+                        <div class="tag-label">Growth Oriented</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="insights-section">
+                <h2 class="section-title">
+                    💡 Key Insights
+                </h2>
+                <div class="insight-item">
+                    <div class="insight-icon">📊</div>
+                    <div class="insight-text">
+                        <div class="insight-title">Childcare Pattern Detected</div>
+                        <div class="insight-description">£657/month in nursery payments suggests readiness for education planning</div>
+                    </div>
+                </div>
+                <div class="insight-item">
+                    <div class="insight-icon">🔄</div>
+                    <div class="insight-text">
+                        <div class="insight-title">Lifecycle Transition Likely</div>
+                        <div class="insight-description">Moving towards preschool stage in 6-12 months based on spending patterns</div>
+                    </div>
+                </div>
+                <div class="insight-item">
+                    <div class="insight-icon">💳</div>
+                    <div class="insight-text">
+                        <div class="insight-title">Financial Stability</div>
+                        <div class="insight-description">Consistent savings behavior indicates capacity for long-term planning</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="confidence-meter">
+                <div class="confidence-fill"></div>
+            </div>
+            <div class="confidence-text">AI Confidence Score: 87% - High Accuracy</div>
+            
+            <button class="cta-button" onclick="showRecommendations()">
+                See Your Personalized Recommendations
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        // Animate confidence meter on load
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                const fill = document.querySelector('.confidence-fill');
+                fill.style.width = '87%';
+            }, 500);
+        });
+        
+        function showRecommendations() {
+            alert('Next: Personalized Product Recommendations\n(Based on your L2 lifecycle stage and behavioral profile)');
+        }
+    </script>
+</body>
+</html>

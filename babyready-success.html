@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabyReady - Success!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .success-header {
+            background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .success-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(-50px) translateY(-50px) rotate(0deg); }
+            50% { transform: translateX(50px) translateY(50px) rotate(180deg); }
+        }
+        
+        .success-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .success-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .success-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .main-content {
+            padding: 32px 20px;
+        }
+        
+        .achievement-card {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            padding: 24px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .achievement-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+        }
+        
+        .achievement-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .achievement-description {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        .next-steps-section {
+            margin-bottom: 24px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .step-item {
+            background: #f8f9fa;
+            border: 2px solid #ecf0f1;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .step-item:hover {
+            border-color: #4ECDC4;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.15);
+        }
+        
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 2px;
+        }
+        
+        .step-description {
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+        
+        .step-time {
+            font-size: 10px;
+            color: #95a5a6;
+            font-weight: 600;
+            background: #ecf0f1;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+        
+        .tracking-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .tracking-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tracking-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            font-size: 13px;
+        }
+        
+        .tracking-item:last-child {
+            border-bottom: none;
+        }
+        
+        .tracking-value {
+            font-weight: 700;
+        }
+        
+        .recommendations-preview {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .preview-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .recommendation-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            font-size: 13px;
+        }
+        
+        .rec-status {
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        
+        .rec-status.completed {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .rec-status.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .primary-btn {
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(78, 205, 196, 0.3);
+        }
+        
+        .secondary-btn {
+            background: transparent;
+            color: #7f8c8d;
+            border: 2px solid #ecf0f1;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .secondary-btn:hover {
+            border-color: #4ECDC4;
+            color: #4ECDC4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-header">
+            <div class="success-icon">🎉</div>
+            <div class="success-title">Success, Sarah!</div>
+            <div class="success-subtitle">Your financial journey has begun</div>
+        </div>
+        
+        <div class="main-content">
+            <div class="achievement-card">
+                <div class="achievement-title">Junior ISA Started!</div>
+                <div class="achievement-description">
+                    You've successfully opened a £75/month Junior ISA with Nutmeg. Your first payment will be processed in 2-3 business days.
+                </div>
+            </div>
+            
+            <div class="next-steps-section">
+                <h2 class="section-title">
+                    📋 What Happens Next
+                </h2>
+                
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">Account Setup</div>
+                        <div class="step-description">Nutmeg will send account details via email</div>
+                    </div>
+                    <div class="step-time">24-48h</div>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">First Investment</div>
+                        <div class="step-description">£75 automatically invested in balanced portfolio</div>
+                    </div>
+                    <div class="step-time">3-5 days</div>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">BabyReady Update</div>
+                        <div class="step-description">We'll refresh your recommendations based on this choice</div>
+                    </div>
+                    <div class="step-time">Real-time</div>
+                </div>
+            </div>
+            
+            <div class="tracking-section">
+                <div class="tracking-title">
+                    📊 Your Family Financial Progress
+                </div>
+                <div class="tracking-item">
+                    <span>Education Planning</span>
+                    <span class="tracking-value">✓ Started</span>
+                </div>
+                <div class="tracking-item">
+                    <span>Protection Coverage</span>
+                    <span class="tracking-value">Recommended</span>
+                </div>
+                <div class="tracking-item">
+                    <span>Emergency Fund</span>
+                    <span class="tracking-value">Pending</span>
+                </div>
+                <div class="tracking-item">
+                    <span>Family Cashback</span>
+                    <span class="tracking-value">Available</span>
+                </div>
+            </div>
+            
+            <div class="recommendations-preview">
+                <div class="preview-title">
+                    🎯 Updated Recommendations
+                </div>
+                <div class="recommendation-item">
+                    <span>Child Life Insurance</span>
+                    <span class="rec-status pending">High Priority</span>
+                </div>
+                <div class="recommendation-item">
+                    <span>Family Cashback</span>
+                    <span class="rec-status pending">Easy Setup</span>
+                </div>
+                <div class="recommendation-item">
+                    <span>Junior ISA</span>
+                    <span class="rec-status completed">Completed</span>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="primary-btn" onclick="continueJourney()">
+                    Continue Your Family Financial Journey
+                </button>
+                <button class="secondary-btn" onclick="viewDashboard()">
+                    View Your Dashboard
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function continueJourney() {
+            alert('Navigate to: Next recommended product\n(Child Life Insurance - 91% match)');
+        }
+        
+        function viewDashboard() {
+            alert('Navigate to: Family Financial Dashboard\n(Track all products, spending insights, lifecycle transitions)');
+        }
+        
+        // Add some celebration animation on load
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.querySelector('.success-icon').style.animation = 'bounce 2s ease-in-out infinite';
+            }, 500);
+        });
+    </script>
+</body>
+</html>

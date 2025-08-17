@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabyReady - Tell Us About Your Family</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .back-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        .progress-indicator {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .form-section {
+            padding: 30px 20px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .section-subtitle {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 32px;
+            font-weight: 500;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #ecf0f1;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #4ECDC4;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(78, 205, 196, 0.1);
+        }
+        
+        .radio-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        
+        .radio-option {
+            position: relative;
+        }
+        
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+        
+        .radio-label {
+            display: block;
+            padding: 16px;
+            background: #f8f9fa;
+            border: 2px solid #ecf0f1;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .radio-option input[type="radio"]:checked + .radio-label {
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+            border-color: #4ECDC4;
+        }
+        
+        .children-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+        
+        .children-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .child-input-group {
+            display: flex;
+            gap: 12px;
+            align-items: end;
+        }
+        
+        .child-input-group .form-input {
+            flex: 1;
+        }
+        
+        .add-child-btn {
+            background: #4ECDC4;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 24px;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .privacy-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+        
+        .privacy-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .privacy-text {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        
+        .continue-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            margin-top: 20px;
+        }
+        
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        .continue-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-btn">←</button>
+            <div class="header-title">Family Info</div>
+            <div class="progress-indicator">1/3</div>
+        </div>
+        
+        <div class="form-section">
+            <h1 class="section-title">Tell us about your family</h1>
+            <p class="section-subtitle">This helps us understand your lifecycle stage and needs</p>
+            
+            <form id="familyForm">
+                <div class="form-group">
+                    <label class="form-label">Your Name</label>
+                    <input type="text" class="form-input" placeholder="Enter your first name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Family Status</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="single" name="familyStatus" value="single">
+                            <label for="single" class="radio-label">Single</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="couple" name="familyStatus" value="couple">
+                            <label for="couple" class="radio-label">Couple</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="newParents" name="familyStatus" value="newParents">
+                            <label for="newParents" class="radio-label">New Parents</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="established" name="familyStatus" value="established">
+                            <label for="established" class="radio-label">Established Family</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="children-section">
+                    <div class="children-title">
+                        👶 Children Information
+                    </div>
+                    
+                    <div id="childrenInputs">
+                        <div class="child-input-group">
+                            <input type="text" class="form-input" placeholder="Child's age (e.g., 2 years)" style="flex: 2;">
+                            <input type="text" class="form-input" placeholder="Stage (e.g., toddler)" style="flex: 2;">
+                            <button type="button" class="add-child-btn" onclick="addChild()">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Expected Life Events (Optional)</label>
+                    <input type="text" class="form-input" placeholder="e.g., New baby expected, Starting school">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Primary Financial Concerns</label>
+                    <div class="radio-group" style="grid-template-columns: 1fr;">
+                        <div class="radio-option">
+                            <input type="radio" id="childcare" name="concerns" value="childcare">
+                            <label for="childcare" class="radio-label">Childcare Costs</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="education" name="concerns" value="education">
+                            <label for="education" class="radio-label">Education Planning</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="protection" name="concerns" value="protection">
+                            <label for="protection" class="radio-label">Family Protection</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="emergency" name="concerns" value="emergency">
+                            <label for="emergency" class="radio-label">Emergency Fund</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="privacy-section">
+                    <div class="privacy-title">
+                        🔐 Your Privacy Matters
+                    </div>
+                    <p class="privacy-text">
+                        Next, you can choose to connect your bank account for personalized insights, or continue with manual input. All data is encrypted and GDPR compliant.
+                    </p>
+                </div>
+                
+                <button type="submit" class="continue-btn">Continue to Bank Connection</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        let childCount = 1;
+        
+        function addChild() {
+            if (childCount < 5) { // Limit to 5 children
+                childCount++;
+                const childrenInputs = document.getElementById('childrenInputs');
+                const newChildGroup = document.createElement('div');
+                newChildGroup.className = 'child-input-group';
+                newChildGroup.style.marginTop = '12px';
+                newChildGroup.innerHTML = `
+                    <input type="text" class="form-input" placeholder="Child's age (e.g., 5 years)" style="flex: 2;">
+                    <input type="text" class="form-input" placeholder="Stage (e.g., preschool)" style="flex: 2;">
+                    <button type="button" class="add-child-btn" onclick="removeChild(this)" style="background: #e74c3c;">-</button>
+                `;
+                childrenInputs.appendChild(newChildGroup);
+            }
+        }
+        
+        function removeChild(button) {
+            button.parentElement.remove();
+            childCount--;
+        }
+        
+        document.getElementById('familyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Next: Bank Connection Options\n(Optional Open Banking integration)');
+        });
+    </script>
+</body>
+</html>
