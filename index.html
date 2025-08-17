@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabyReady - Product Prototype Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .logo {
+            font-size: 42px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: #7f8c8d;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .description {
+            font-size: 14px;
+            color: #95a5a6;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+        
+        .demo-info {
+            background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .demo-info h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .demo-info p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .user-journey {
+            margin-bottom: 40px;
+        }
+        
+        .journey-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .journey-flow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+        
+        .journey-card {
+            background: white;
+            border: 2px solid #ecf0f1;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .journey-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(78, 205, 196, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .journey-card:hover {
+            border-color: #4ECDC4;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(78, 205, 196, 0.2);
+        }
+        
+        .journey-card:hover::before {
+            left: 100%;
+        }
+        
+        .card-number {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+            margin: 0 auto 16px;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .card-description {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+        
+        .card-features {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .feature-tag {
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #7f8c8d;
+        }
+        
+        .demo-btn {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+        }
+        
+        .quick-demo-section {
+            background: #f8f9fa;
+            padding: 32px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        
+        .quick-demo-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 16px;
+        }
+        
+        .quick-demo-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .quick-btn {
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            min-width: 180px;
+        }
+        
+        .quick-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(78, 205, 196, 0.3);
+        }
+        
+        .tech-specs {
+            margin-top: 40px;
+            padding-top: 32px;
+            border-top: 1px solid #ecf0f1;
+        }
+        
+        .specs-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .spec-item {
+            text-align: center;
+            padding: 16px;
+        }
+        
+        .spec-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .spec-label {
+            font-size: 12px;
+            color: #7f8c8d;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .spec-value {
+            font-size: 14px;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid #ecf0f1;
+            color: #95a5a6;
+            font-size: 12px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 24px;
+                margin: 10px;
+            }
+            
+            .journey-flow {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-demo-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">BabyReady</div>
+            <div class="subtitle">AI-Powered Family Financial Intelligence</div>
+            <div class="description">
+                Interactive prototype demonstrating the complete user journey from onboarding to successful product conversion
+            </div>
+        </div>
+        
+        <div class="demo-info">
+            <h2>🎯 Product Prototype Demo</h2>
+            <p>This prototype showcases the technical solution proposed in the dissertation research</p>
+        </div>
+        
+        <div class="user-journey">
+            <h2 class="journey-title">Complete User Journey</h2>
+            
+            <div class="journey-flow">
+                <div class="journey-card" onclick="window.open('landing.html', '_blank')">
+                    <div class="card-number">1</div>
+                    <div class="card-title">Landing Page</div>
+                    <div class="card-description">Brand introduction, value proposition, and user acquisition</div>
+                    <div class="card-features">
+                        <span class="feature-tag">Hero Section</span>
+                        <span class="feature-tag">Features</span>
+                        <span class="feature-tag">Social Proof</span>
+                    </div>
+                    <a href="landing.html" class="demo-btn" target="_blank">View Demo</a>
+                </div>
+                
+                <div class="journey-card" onclick="window.open('family-form.html', '_blank')">
+                    <div class="card-number">2</div>
+                    <div class="card-title">Family Information</div>
+                    <div class="card-description">Progressive data collection for family profiling</div>
+                    <div class="card-features">
+                        <span class="feature-tag">Dynamic Forms</span>
+                        <span class="feature-tag">Privacy First</span>
+                        <span class="feature-tag">UX Optimized</span>
+                    </div>
+                    <a href="family-form.html" class="demo-btn" target="_blank">View Demo</a>
+                </div>
+                
+                <div class="journey-card" onclick="window.open('ai-analysis.html', '_blank')">
+                    <div class="card-number">3</div>
+                    <div class="card-title">AI Analysis Results</div>
+                    <div class="card-description">Lifecycle detection and behavioral profiling visualization</div>
+                    <div class="card-features">
+                        <span class="feature-tag">L1-L5 Classification</span>
+                        <span class="feature-tag">Behavioral Tags</span>
+                        <span class="feature-tag">Explainable AI</span>
+                    </div>
+                    <a href="ai-analysis.html" class="demo-btn" target="_blank">View Demo</a>
+                </div>
+                
+                <div class="journey-card" onclick="window.open('recommendations.html', '_blank')">
+                    <div class="card-number">4</div>
+                    <div class="card-title">Product Recommendations</div>
+                    <div class="card-description">Hybrid AI recommendation engine with confidence scoring</div>
+                    <div class="card-features">
+                        <span class="feature-tag">Content-Based</span>
+                        <span class="feature-tag">Collaborative</span>
+                        <span class="feature-tag">Context-Aware</span>
+                    </div>
+                    <a href="recommendations.html" class="demo-btn" target="_blank">View Demo</a>
+                </div>
+                
+                <div class="journey-card" onclick="window.open('partner-redirect.html', '_blank')">
+                    <div class="card-number">5</div>
+                    <div class="card-title">Partner Integration</div>
+                    <div class="card-description">Transparent B2B partnership with secure redirection</div>
+                    <div class="card-features">
+                        <span class="feature-tag">Commission Disclosure</span>
+                        <span class="feature-tag">Security</span>
+                        <span class="feature-tag">Trust Building</span>
+                    </div>
+                    <a href="partner-redirect.html" class="demo-btn" target="_blank">View Demo</a>
+                </div>
+                
+                <div class="journey-card" onclick="window.open('success.html', '_blank')">
+                    <div class="card-number">6</div>
+                    <div class="card-title">Success & Retention</div>
+                    <div class="card-description">Conversion confirmation and continued engagement</div>
+                    <div class="card-features">
+                        <span class="feature-tag">Achievement</span>
+                        <span class="feature-tag">Next Steps</span>
+                        <span class="feature-tag">Lifecycle Tracking</span>
+                    </div>
+                    <a href="success.html" class="demo-btn" target="_blank">View Demo</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="quick-demo-section">
+            <div class="quick-demo-title">🚀 Quick Demo Options</div>
+            <div class="quick-demo-buttons">
+                <a href="landing.html" class="quick-btn" target="_blank">Start Full Journey</a>
+                <a href="ai-analysis.html" class="quick-btn" target="_blank">Jump to AI Results</a>
+                <a href="recommendations.html" class="quick-btn" target="_blank">See Recommendations</a>
+            </div>
+        </div>
+        
+        <div class="tech-specs">
+            <div class="specs-title">Technical Implementation</div>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-icon">🧠</div>
+                    <div class="spec-label">AI Models</div>
+                    <div class="spec-value">Random Forest + XGBoost</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon">🔗</div>
+                    <div class="spec-label">Data Integration</div>
+                    <div class="spec-value">Open Banking APIs</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon">🎯</div>
+                    <div class="spec-label">Personalization</div>
+                    <div class="spec-value">4D Behavioral Profiling</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon">🤝</div>
+                    <div class="spec-label">Business Model</div>
+                    <div class="spec-value">B2B Partnership Revenue</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon">🔐</div>
+                    <div class="spec-label">Compliance</div>
+                    <div class="spec-value">GDPR + FCA Compliant</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon">📱</div>
+                    <div class="spec-label">Platform</div>
+                    <div class="spec-value">Mobile-First Design</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>BabyReady Product Prototype • Dissertation Research Project • Interactive Demo</p>
+            <p style="margin-top: 8px; font-size: 11px;">
+                This prototype demonstrates the AI-driven family financial intelligence solution proposed in the academic research
+            </p>
+        </div>
+    </div>
+</body>
+</html>
